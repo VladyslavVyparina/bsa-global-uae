@@ -1,0 +1,695 @@
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWMBLX42"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+var Webflow = Webflow || [];
+Webflow.push(function() {
+  const phoneInputs = document.querySelectorAll('.form-input.is-phone, [ms-code-phone-number]');
+  phoneInputs.forEach(function(input) {
+    if (input) {
+      window.intlTelInput(input, {
+        initialCountry: "ua",
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+      });
+    }
+  });
+
+  function validatePhoneNumber(input) {
+    const $input = $(input);
+    const val = $input.val().replace(/[^0-9]/g, '');
+    if (val.length > 0 && val.length < 7) {
+      input.setCustomValidity("Номер телефону має містити мінімум 7 цифр");
+      $input.addClass('invalid');
+      return false;
+    } else {
+      input.setCustomValidity("");
+      $input.removeClass('invalid');
+      return val.length >= 7;
+    }
+  }
+
+  $('.form-input.is-phone, [ms-code-phone-number]').on('input blur', function() {
+    validatePhoneNumber(this);
+  });
+
+  var isLeadSent = false;
+
+  $('.cta-form-block, .multistep_form-block').on('submit', function(e) {
+    var $form = $(this);
+    var phoneElement = $form.find('.form-input.is-phone, [ms-code-phone-number]')[0];
+    var isPhoneOk = validatePhoneNumber(phoneElement);
+    if (!isPhoneOk) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    }
+    if (!isLeadSent) {
+      if (typeof fbq !== 'undefined') {
+        fbq('trackSingle', '25857205430624230', 'Lead');
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({'event': 'lead_form_submit'});
+      isLeadSent = true;
+      setTimeout(function() { isLeadSent = false; }, 3000);
+    }
+  });
+});
+</script>
+<script>
+(function(){
+  function initMenu(){
+    var toggle = document.getElementById('mobile-toggle-2026-btn');
+    var overlay = document.getElementById('mobile-overlay-2026');
+    var closeBtn = document.getElementById('mobile-overlay-close-2026-btn');
+    if(!toggle||!overlay) return;
+    function openMenu(){
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    toggle.addEventListener('click', openMenu);
+    if(closeBtn){
+      closeBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        closeMenu();
+      });
+    }
+    var links = overlay.querySelectorAll('a:not(.mobile-overlay-close-2026)');
+    links.forEach(function(link){
+      link.addEventListener('click', closeMenu);
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initMenu);
+  } else {
+    initMenu();
+  }
+})();
+</script>
+<script>
+(function () {
+  const mobileNav = document.getElementById("mobileNav");
+  const toggle = document.querySelector(".menu-toggle");
+  const closeBtn = document.querySelector(".mobile-close");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function openMenu() {
+    if (!mobileNav) return;
+    mobileNav.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    if (!mobileNav) return;
+    mobileNav.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  toggle && toggle.addEventListener("click", openMenu);
+  closeBtn && closeBtn.addEventListener("click", closeMenu);
+  mobileNav &&
+    mobileNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMenu);
+    });
+
+  const servicesGrid = document.getElementById("servicesGrid");
+  if (servicesGrid) {
+    servicesGrid.addEventListener("mouseenter", function () {
+      servicesGrid.classList.add("is-hot");
+    });
+    servicesGrid.addEventListener("mouseleave", function () {
+      servicesGrid.classList.remove("is-hot");
+    });
+  }
+
+  const processStage = document.getElementById("processStage");
+  const processCards = document.querySelectorAll(".process-card");
+  const processBgs = document.querySelectorAll(".process-bg");
+
+  function setProcessStep(index) {
+    if (!processCards.length) return;
+    processCards.forEach(function (card, i) {
+      card.classList.toggle("is-active", i === index);
+    });
+    processBgs.forEach(function (bg, i) {
+      bg.classList.toggle("is-on", i === index);
+    });
+  }
+
+  processCards.forEach(function (card, index) {
+    card.addEventListener("mouseenter", function () {
+      if (processStage) processStage.classList.add("is-hot");
+      setProcessStep(index);
+    });
+    card.addEventListener("focus", function () {
+      if (processStage) processStage.classList.add("is-hot");
+      setProcessStep(index);
+    });
+    card.addEventListener("click", function () {
+      if (processStage) processStage.classList.add("is-hot");
+      setProcessStep(index);
+    });
+  });
+
+  if (processStage) {
+    processStage.addEventListener("mouseleave", function () {
+      processStage.classList.remove("is-hot");
+      setProcessStep(0);
+    });
+  }
+
+  const ROUTES = {
+    ukraine: {
+      title: "Ukraine → Air & Sea freight solutions",
+      modes: ["Air", "Sea"],
+      times: [
+        ["Air transit", "3–5 days"],
+        ["Sea transit", "18–25 days"],
+      ],
+      note: "<strong>CEPA UA-UAE (2025)</strong> — duties zeroed on 97% of goods. We apply it by default.",
+    },
+    georgia: {
+      title: "Georgia → Air & Road freight connectivity",
+      modes: ["Air", "Road"],
+      times: [
+        ["Air transit", "3–4 days"],
+        ["Road transit", "5–8 days"],
+      ],
+      note: "<strong>Tbilisi hub.</strong> Road routing through Turkey. Competitive transit times.",
+    },
+    armenia: {
+      title: "Armenia → Air & Road freight services",
+      modes: ["Air", "Road"],
+      times: [
+        ["Air transit", "3–5 days"],
+        ["Road transit", "6–10 days"],
+      ],
+      note: "<strong>Yerevan hub.</strong> Road transit via Georgia or other available corridors. Documentation in Russian and Armenian where needed.",
+    },
+    uzbekistan: {
+      title: "Uzbekistan → Air, Road & Rail logistics solutions",
+      modes: ["Air", "Road", "Rail"],
+      times: [
+        ["Air transit", "4–6 days"],
+        ["Road/rail transit", "12–18 days"],
+      ],
+      note: "<strong>Tashkent hub.</strong> Road routing via Kazakhstan or other available corridors depending on cargo and destination.",
+    },
+    kazakhstan: {
+      title: "Kazakhstan → Air, Road & Rail freight solutions",
+      modes: ["Air", "Road", "Rail"],
+      times: [
+        ["Air transit", "4–6 days"],
+        ["Road/rail transit", "12–16 days"],
+      ],
+      note: "<strong>Almaty hub.</strong> Direct road and rail corridors across Central Asia, with multimodal onward movement to the UAE.",
+    },
+  };
+
+  // Routes: update only on hover/click — never fade content away
+  const routeItems = document.querySelectorAll(".route-item");
+  const routeLines = document.querySelectorAll(".route-line");
+  const routeTitle = document.getElementById("routeTitle");
+  const routeModes = document.getElementById("routeModes");
+  const routeTimes = document.getElementById("routeTimes");
+  const routeNote = document.getElementById("routeNote");
+
+  function setActiveLine(key) {
+    routeLines.forEach(function (line) {
+      var active = line.getAttribute("data-route") === key;
+      line.classList.toggle("is-active", active);
+    });
+  }
+
+  function renderRoute(key) {
+    const data = ROUTES[key];
+    if (!data || !routeTitle) return;
+    routeTitle.textContent = data.title;
+    routeModes.innerHTML = data.modes
+      .map(function (mode) {
+        return "<span>" + mode + "</span>";
+      })
+      .join("");
+    routeTimes.innerHTML = data.times
+      .map(function (row) {
+        return "<div><span>" + row[0] + "</span><span>" + row[1] + "</span></div>";
+      })
+      .join("");
+    routeNote.innerHTML = data.note;
+    setActiveLine(key);
+  }
+
+  function activateRoute(item) {
+    routeItems.forEach(function (el) {
+      el.classList.toggle("is-active", el === item);
+    });
+    renderRoute(item.getAttribute("data-route"));
+  }
+
+  routeItems.forEach(function (item) {
+    item.addEventListener("mouseenter", function () {
+      activateRoute(item);
+    });
+    item.addEventListener("click", function () {
+      activateRoute(item);
+    });
+  });
+
+  if (routeItems.length) {
+    renderRoute(routeItems[0].getAttribute("data-route"));
+  }
+
+  const cargoSection = document.querySelector(".cargo");
+  const cargoViewport = document.getElementById("cargoViewport");
+  const cargoList = document.getElementById("cargoList");
+  const BREAKPOINT = 768;
+  const PAUSE_MS = 1000;
+  const MOVE_MS = 380;
+  const RESET_MS = 600;
+
+  if (cargoSection && cargoViewport && cargoList) {
+    let items = Array.prototype.slice.call(cargoList.querySelectorAll("li"));
+    let currentY = 0;
+    let animId = null;
+    let pauseTimer = null;
+    let isInView = false;
+    let isEnabled = false;
+    let isInitialized = false;
+
+    function clearActive() {
+      items.forEach(function (item) {
+        item.classList.remove("is-active");
+      });
+    }
+
+    function setActive(el) {
+      clearActive();
+      if (el) el.classList.add("is-active");
+    }
+
+    function getViewportCenter() {
+      const rect = cargoViewport.getBoundingClientRect();
+      return rect.top + rect.height / 2;
+    }
+
+    function measureOffsets() {
+      cargoList.style.transition = "none";
+      cargoList.style.transform = "translate3d(0, 0, 0)";
+      currentY = 0;
+      void cargoList.offsetHeight;
+      const viewportCenter = getViewportCenter();
+      return items.map(function (item) {
+        const rect = item.getBoundingClientRect();
+        const itemCenter = rect.top + rect.height / 2;
+        return viewportCenter - itemCenter;
+      });
+    }
+
+    function getClosestItem() {
+      const viewportCenter = getViewportCenter();
+      let closest = null;
+      let minDist = Infinity;
+      items.forEach(function (item) {
+        const rect = item.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - viewportCenter);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = item;
+        }
+      });
+      return closest;
+    }
+
+    function killTimers() {
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+      if (pauseTimer) {
+        clearTimeout(pauseTimer);
+        pauseTimer = null;
+      }
+      cargoList.style.transition = "none";
+    }
+
+    function animateY(toY, duration, onStart, onComplete) {
+      killTimers();
+      if (onStart) onStart();
+      if (reduceMotion) {
+        currentY = toY;
+        cargoList.style.transform = "translate3d(0, " + currentY + "px, 0)";
+        if (onComplete) onComplete();
+        return;
+      }
+      const fromY = currentY;
+      const start = performance.now();
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        currentY = fromY + (toY - fromY) * easeOut(t);
+        cargoList.style.transform = "translate3d(0, " + currentY + "px, 0)";
+        if (t < 1) {
+          animId = requestAnimationFrame(frame);
+        } else {
+          animId = null;
+          currentY = toY;
+          if (onComplete) onComplete();
+        }
+      }
+      animId = requestAnimationFrame(frame);
+    }
+
+    let stepOffsets = [];
+
+    function resetToFirst() {
+      if (!stepOffsets.length) return;
+      animateY(
+        stepOffsets[0],
+        RESET_MS,
+        function () {
+          setActive(items[0]);
+        },
+        function () {
+          if (isEnabled && isInView) {
+            pauseTimer = setTimeout(animateToNext, PAUSE_MS);
+          }
+        }
+      );
+    }
+
+    function animateToNext() {
+      if (!isEnabled || !isInView) return;
+      const current = getClosestItem();
+      if (!current) return;
+      const currentRect = current.getBoundingClientRect();
+      const viewportCenter = getViewportCenter();
+      const candidates = items
+        .map(function (item) {
+          const rect = item.getBoundingClientRect();
+          return { el: item, top: rect.top, center: rect.top + rect.height / 2 };
+        })
+        .filter(function (item) {
+          return item.top > currentRect.top + 1;
+        })
+        .sort(function (a, b) {
+          return a.top - b.top;
+        });
+      const next = candidates[0];
+      if (!next) {
+        resetToFirst();
+        return;
+      }
+      const delta = viewportCenter - next.center;
+      animateY(
+        currentY + delta,
+        MOVE_MS,
+        function () {
+          setActive(next.el);
+        },
+        function () {
+          if (isEnabled && isInView) {
+            pauseTimer = setTimeout(animateToNext, PAUSE_MS);
+          }
+        }
+      );
+    }
+
+    function destroyAnimation() {
+      killTimers();
+      cargoList.style.transform = "";
+      clearActive();
+      isInitialized = false;
+    }
+
+    function init() {
+      isEnabled = window.innerWidth >= BREAKPOINT && !reduceMotion;
+      items = Array.prototype.slice.call(cargoList.querySelectorAll("li"));
+      if (!isEnabled) {
+        destroyAnimation();
+        if (items[0]) setActive(items[Math.min(6, items.length - 1)]);
+        return;
+      }
+      killTimers();
+      stepOffsets = measureOffsets();
+      if (!stepOffsets.length) return;
+      currentY = stepOffsets[0];
+      cargoList.style.transform = "translate3d(0, " + currentY + "px, 0)";
+      setActive(items[0]);
+      isInitialized = true;
+      if (isInView) {
+        pauseTimer = setTimeout(animateToNext, PAUSE_MS);
+      }
+    }
+
+    function updateVisibility() {
+      const rect = cargoSection.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const visible = rect.bottom > 0 && rect.top < vh;
+      if (visible === isInView) return;
+      isInView = visible;
+      if (!isInitialized) return;
+      if (isInView) {
+        if (!animId && !pauseTimer) {
+          pauseTimer = setTimeout(animateToNext, PAUSE_MS);
+        }
+      } else {
+        killTimers();
+      }
+    }
+
+    let resizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 150);
+    });
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+
+    init();
+    updateVisibility();
+  }
+
+  const track = document.getElementById("galleryTrack");
+  const trackWrap = document.querySelector(".gallery-track-wrap");
+
+  function galleryItems() {
+    if (!track) return [];
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+    let x = 0;
+    return [...track.querySelectorAll("img")].map(function (img) {
+      const w = img.getBoundingClientRect().width;
+      const item = { left: x, width: w, right: x + w };
+      x += w + gap;
+      return item;
+    });
+  }
+
+  function galleryStep(dir) {
+    if (!track) return;
+    const items = galleryItems();
+    const viewW = track.clientWidth;
+    const sl = track.scrollLeft;
+    const max = Math.max(0, track.scrollWidth - viewW);
+    if (dir > 0) {
+      const next = items.find(function (it) { return it.left > sl + 2; });
+      if (!next || next.width > viewW + 1) return;
+      track.scrollTo({ left: Math.min(next.left, max), behavior: reduceMotion ? "auto" : "smooth" });
+      return;
+    }
+    const prev = [...items].reverse().find(function (it) { return it.left < sl - 2; });
+    track.scrollTo({ left: prev ? prev.left : 0, behavior: reduceMotion ? "auto" : "smooth" });
+  }
+
+  document.querySelectorAll("[data-gallery]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      galleryStep(Number(btn.getAttribute("data-gallery")));
+    });
+  });
+
+  // Drag-to-scroll gallery (done.partners style)
+  if (track && trackWrap) {
+    let dragging = false;
+    let startX = 0;
+    let startLeft = 0;
+    trackWrap.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      trackWrap.classList.add("is-dragging");
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+      trackWrap.setPointerCapture(e.pointerId);
+    });
+    trackWrap.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      track.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    function endDrag(e) {
+      dragging = false;
+      trackWrap.classList.remove("is-dragging");
+      try {
+        trackWrap.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+    }
+    trackWrap.addEventListener("pointerup", endDrag);
+    trackWrap.addEventListener("pointercancel", endDrag);
+  }
+
+  // Track Record — stagger in + count-up (done.partners-style)
+  const trackSection = document.querySelector(".track");
+  if (trackSection) {
+    const stats = trackSection.querySelectorAll(".stat b");
+    function parseStat(text) {
+      const raw = (text || "").trim();
+      const m = raw.match(/^([\d.,]+)(.*)$/);
+      if (!m) return null;
+      return { value: parseFloat(m[1].replace(",", "")), suffix: m[2], decimals: (m[1].split(".")[1] || "").length };
+    }
+    function animateCount(el, target, suffix, decimals, duration) {
+      const start = performance.now();
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const current = target * eased;
+        el.textContent =
+          (decimals ? current.toFixed(decimals) : Math.round(current).toString()) + suffix;
+        if (t < 1) requestAnimationFrame(frame);
+        else el.textContent = (decimals ? target.toFixed(decimals) : String(target)) + suffix;
+      }
+      requestAnimationFrame(frame);
+    }
+    function runTrack() {
+      trackSection.classList.add("is-in");
+      if (reduceMotion) return;
+      stats.forEach(function (el, i) {
+        const original = el.textContent.trim();
+        const parsed = parseStat(original);
+        // Skip compound values like "2+1"
+        if (!parsed || !isFinite(parsed.value) || /\d/.test(parsed.suffix)) {
+          return;
+        }
+        el.setAttribute("data-final", original);
+        el.textContent = (parsed.decimals ? (0).toFixed(parsed.decimals) : "0") + parsed.suffix;
+        setTimeout(function () {
+          animateCount(el, parsed.value, parsed.suffix, parsed.decimals, 1200);
+        }, 140 + i * 160);
+      });
+    }
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              runTrack();
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      io.observe(trackSection);
+    } else {
+      runTrack();
+    }
+  }
+
+  const form = document.getElementById("quoteForm");
+  const status = document.getElementById("formStatus");
+  form &&
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const data = new FormData(form);
+      const lines = [
+        "New quote request from uae.bsaglobal.pro",
+        "Name: " + (data.get("name") || ""),
+        "Company: " + (data.get("company") || ""),
+        "Email: " + (data.get("email") || ""),
+        "Phone: " + (data.get("phone") || ""),
+        "Route: " + (data.get("route") || ""),
+        "Cargo type: " + (data.get("cargo") || ""),
+        "Origin / destination: " + (data.get("origin") || ""),
+        "Dimensions / weight: " + (data.get("dimensions") || ""),
+        "Timeline: " + (data.get("timeline") || ""),
+        "What to source: " + (data.get("source") || ""),
+        "Message: " + (data.get("message") || ""),
+      ];
+      const text = encodeURIComponent(lines.join("\n"));
+      if (status) {
+        status.textContent = "Thank you. Opening WhatsApp so we can confirm the details.";
+      }
+      window.open("https://wa.me/971506478030?text=" + text, "_blank");
+      form.reset();
+    });
+
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    const btn = item.querySelector("button");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      const open = item.classList.contains("is-open");
+      document.querySelectorAll(".faq-item").forEach(function (el) {
+        el.classList.remove("is-open");
+      });
+      if (!open) item.classList.add("is-open");
+    });
+  });
+
+  // Transport modes: desktop switches on hover, smaller screens on tap
+  const modeTabs = document.querySelectorAll(".mode-tab");
+  const modePanels = document.querySelectorAll(".mode-panel");
+  const modeBg = document.querySelector(".mode-bg");
+  const modeDesktop = window.matchMedia("(min-width: 1101px)");
+
+  function activateMode(tab) {
+    const mode = tab.getAttribute("data-mode");
+    modeTabs.forEach(function (t) {
+      t.classList.toggle("is-active", t === tab);
+    });
+    modePanels.forEach(function (p) {
+      p.classList.toggle("is-active", p.getAttribute("data-mode") === mode);
+    });
+    if (modeBg) {
+      var src = modeBg.getAttribute("data-" + mode);
+      if (src) modeBg.src = src;
+    }
+  }
+
+  modeTabs.forEach(function (tab) {
+    tab.addEventListener("mouseenter", function () {
+      if (modeDesktop.matches) activateMode(tab);
+    });
+    tab.addEventListener("click", function () {
+      if (!modeDesktop.matches) activateMode(tab);
+    });
+  });
+
+  var parallaxEls = document.querySelectorAll(".why-total-bg, .routes-bg");
+  if (parallaxEls.length) {
+    var parallaxTicking = false;
+    function paintParallax() {
+      parallaxTicking = false;
+      var viewH = window.innerHeight || 800;
+      parallaxEls.forEach(function (el) {
+        var parent = el.parentElement;
+        if (!parent) return;
+        var rect = parent.getBoundingClientRect();
+        if (rect.bottom < -40 || rect.top > viewH + 40) return;
+        var shift = (rect.top - viewH * 0.5) * -0.06;
+        el.style.transform = "translate3d(0," + shift.toFixed(1) + "px,0) scale(1.08)";
+      });
+    }
+    window.addEventListener("scroll", function () {
+      if (parallaxTicking) return;
+      parallaxTicking = true;
+      window.requestAnimationFrame(paintParallax);
+    }, { passive: true });
+    paintParallax();
+  }
+})();
+
+</script>
